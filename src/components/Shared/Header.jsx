@@ -1,5 +1,6 @@
 import { Button, Navbar } from "flowbite-react";
 import Container from "./Container";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -9,12 +10,34 @@ const Header = () => {
           <h1 className="text-xl font-semibold">Recipes</h1>
         </Navbar.Brand>
         <div className="flex md:order-2">
-          <Button>Google Login</Button>
+          <Button gradientDuoTone="tealToLime">Google Login</Button>
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/">Home</Navbar.Link>
-          <Navbar.Link href="#">Recipes</Navbar.Link>
+          <NavLink
+            to={"/"}
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? "text-[#646e19] border-b-4 border-[#646e19]"
+                : "hover:text-[#646e19]"
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to={"/recipes"}
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? "text-[#646e19] border-b-4 border-[#646e19]"
+                : "hover:text-[#646e19]"
+            }
+          >
+            Recipes
+          </NavLink>
         </Navbar.Collapse>
       </Navbar>
     </Container>
