@@ -4,7 +4,7 @@ import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 
 const FooterUI = () => {
   return (
-    <section className="pb-16 pt-16">
+    <section className="pb-16">
       <Container>
         <Footer container className="bg-lime-300 bg-opacity-25">
           <div className="w-full">
