@@ -46,7 +46,7 @@ const Banner = () => {
     if (user) {
       navigate("/add-recipes");
     } else {
-      toast.error("please login");
+      toast.error("please google login");
     }
   };
 

@@ -3,7 +3,7 @@ import CountUp from "react-countup";
 
 const SuccessStories = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-between my-20 md:mx-40 bg-slate-100 rounded-2xl shadow-sm px-10 py-20 text-center items-center">
+    <div className="flex flex-col md:flex-row justify-between my-20 md:mx-40 bg-slate-200 rounded-2xl shadow-sm px-10 py-20 text-center items-center">
       <div className="w-full md:w-1/2 mb-10 md:mb-0">
         <img
           src={img}
