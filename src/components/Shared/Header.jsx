@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import logo from "../../assets/header_logo.webp";
 
 const Header = () => {
   const { user, signInWithGoogle, logOut } = useContext(AuthContext);
@@ -28,9 +29,9 @@ const Header = () => {
 
   return (
     <Container>
-      <Navbar fluid rounded>
+      <Navbar fluid rounded className="bg-slate-100">
         <Navbar.Brand>
-          <h1 className="text-xl font-semibold">Recipes</h1>
+          <img src={logo} alt="" />
         </Navbar.Brand>
         <div className="flex md:order-2">
           {user ? (

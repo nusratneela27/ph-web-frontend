@@ -4,11 +4,11 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <div>
+    <>
       <Header></Header>
       <Outlet></Outlet>
       <FooterUI></FooterUI>
-    </div>
+    </>
   );
 };
 

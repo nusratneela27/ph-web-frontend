@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -7,9 +7,14 @@ import "swiper/css/pagination";
 import "./Banner.css";
 
 import { EffectCoverflow, Pagination } from "swiper/modules";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const Banner = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const slides = [
     {
       imageUrl: "https://i.ibb.co/pJqwVTv/tabboki.jpg",
@@ -36,6 +41,14 @@ const Banner = () => {
       button2: "Add Recipes",
     },
   ];
+
+  const handleGoogleSignIn = () => {
+    if (user) {
+      navigate("/add-recipes");
+    } else {
+      toast.error("please login");
+    }
+  };
 
   return (
     <div>
@@ -72,8 +85,11 @@ const Banner = () => {
                     {slide.button1}
                   </button>
                 </NavLink>
-                <NavLink to={"/add-recipes"}>
-                  <button className="px-5 py-3 text-sm rounded bg-teal-300 hover:bg-teal-400">
+                <NavLink>
+                  <button
+                    onClick={handleGoogleSignIn}
+                    className="px-5 py-3 text-sm rounded bg-teal-300 hover:bg-teal-400"
+                  >
                     {slide.button2}
                   </button>
                 </NavLink>

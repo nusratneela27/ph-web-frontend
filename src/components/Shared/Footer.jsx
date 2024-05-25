@@ -21,15 +21,19 @@ const FooterUI = () => {
                 <div>
                   <Footer.Title title="about" />
                   <Footer.LinkGroup col>
-                    <Footer.Link href="#">Recipes</Footer.Link>
+                    <Footer.Link href="/recipes">Recipes</Footer.Link>
                     <Footer.Link href="#">New Idea</Footer.Link>
                   </Footer.LinkGroup>
                 </div>
                 <div>
                   <Footer.Title title="Follow us" />
                   <Footer.LinkGroup col>
-                    <Footer.Link href="#">Facebook</Footer.Link>
-                    <Footer.Link href="#">Instagram</Footer.Link>
+                    <Footer.Link href="https://github.com/nusratneela27">
+                      Github
+                    </Footer.Link>
+                    <Footer.Link href="https://www.linkedin.com/in/nusrat-jahan-neela/">
+                      Linkdin
+                    </Footer.Link>
                   </Footer.LinkGroup>
                 </div>
                 <div>
