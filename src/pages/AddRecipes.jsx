@@ -2,8 +2,11 @@ import { Button, Label, TextInput, Select } from "flowbite-react";
 import Container from "../components/Shared/Container";
 import img from "../assets/SuccessStories/img2.jpg";
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const AddRecipes = () => {
+  const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -29,8 +32,13 @@ const AddRecipes = () => {
           const addRecipe = {
             ...data,
             image: imageUrl,
+            host: {
+              email: user?.email,
+            },
+            watchCount: 0,
+            purchased_by: [],
           };
-          console.log("Form Data with Image URL:", addRecipe);
+          // console.log("Form Data with Image URL:", addRecipe);
         })
         .catch((err) => {
           console.log(err.message);

@@ -5,8 +5,8 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { app } from "../firebase/firebase.config";
 import { createContext, useState, useEffect } from "react";
-import app from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
 
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   const authInfo = {
     user,

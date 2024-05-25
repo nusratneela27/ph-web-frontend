@@ -12,18 +12,17 @@ const Header = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        const loggedUser = result.user;
-        // console.log(loggedUser);
+        console.log(result.user);
         toast.success("Google Login successful");
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
       });
   };
 
   const handleLogOut = () => {
     logOut()
-      .then((result) => toast.success("successfully Logout"))
+      .then(() => toast.success("successfully Logout"))
       .catch((err) => toast.error(err));
   };
 
