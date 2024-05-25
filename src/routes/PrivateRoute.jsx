@@ -6,7 +6,11 @@ import { Spinner } from "flowbite-react";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   if (loading) {
-    return <Spinner aria-label="Extra large spinner example" size="xl" />;
+    return (
+      <div className="h-[70vh] flex flex-col justify-center items-center">
+        <Spinner aria-label="Extra large spinner example" size="xl" />
+      </div>
+    );
   }
 
   if (user) {

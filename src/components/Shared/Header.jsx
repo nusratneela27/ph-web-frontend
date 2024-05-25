@@ -13,7 +13,7 @@ const Header = () => {
       .then((result) => {
         const loggedUser = result.user;
         // console.log(loggedUser);
-        toast.success("Login successful");
+        toast.success("Google Login successful");
       })
       .catch((error) => {
         // console.log(error);

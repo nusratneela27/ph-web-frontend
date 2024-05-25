@@ -1,8 +1,11 @@
+import Container from "../../components/Shared/Container";
+import Banner from "./Banner/Banner";
+
 const Home = () => {
   return (
-    <div>
-      <h1>home</h1>
-    </div>
+    <Container>
+      <Banner></Banner>
+    </Container>
   );
 };
 
