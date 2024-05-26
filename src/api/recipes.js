@@ -27,20 +27,6 @@ export const getRecipe = async id => {
 }
 
 // Update Recipe
-// export const updateRecipe = async (recipeData, id) => {
-//     const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes/${id}`, {
-//         method: "PUT",
-//         headers: {
-//             'content-type': 'application/json',
-//         },
-//         body: JSON.stringify(recipeData)
-//     })
-
-//     const data = await response.json()
-//     return data
-// }
-
-// Update Recipe
 export const updateRecipe = async (id, recipeData) => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes/${id}`, {
         method: 'PUT',
