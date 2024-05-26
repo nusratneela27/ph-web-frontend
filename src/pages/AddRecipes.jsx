@@ -4,6 +4,8 @@ import img from "../assets/SuccessStories/img2.jpg";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { addRecipes } from "../api/recipes";
+import toast from "react-hot-toast";
 
 const AddRecipes = () => {
   const { user } = useContext(AuthContext);
@@ -14,6 +16,7 @@ const AddRecipes = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    // console.log(data);
     // Handle image upload
     if (data.image[0]) {
       const file = data.image[0];
@@ -29,7 +32,7 @@ const AddRecipes = () => {
         .then((res) => res.json())
         .then((imageData) => {
           const imageUrl = imageData.data.display_url;
-          const addRecipe = {
+          const recipeData = {
             ...data,
             image: imageUrl,
             host: {
@@ -38,7 +41,15 @@ const AddRecipes = () => {
             watchCount: 0,
             purchased_by: [],
           };
-          // console.log("Form Data with Image URL:", addRecipe);
+          // console.log( recipeData);
+
+          // post recipe to server
+          addRecipes(recipeData)
+            .then((data) => {
+              // console.log(data);
+              toast.success("Recipe Added!");
+            })
+            .catch((err) => console.log(err));
         })
         .catch((err) => {
           console.log(err.message);
