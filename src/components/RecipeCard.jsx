@@ -5,36 +5,52 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { setCoinValue } from "../api/auth";
+import { updateRecipe } from "../api/recipes";
 
 const RecipeCard = ({ recipe }) => {
   const { user, coin, setCoin } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleGoogleSignIn = async () => {
-    if (user) {
-      if (user.email === recipe.host.email) {
-        navigate(`/details/${recipe._id}`);
-      } else if (coin < 10) {
-        navigate("/coins");
-        toast.error(
-          "You do not have enough coins. Please purchase more coins."
-        );
-      } else {
-        const confirmation = window.confirm(
-          "Are you sure you want to spend 10 coins to view this recipe?"
-        );
-        if (confirmation) {
-          const newCoinValue = coin - 10;
-          // update coin in the server
-          setCoinValue(user.email, newCoinValue);
-          setCoin(newCoinValue);
-          toast.success("10 coins added to the create user");
-          navigate(`/details/${recipe._id}`);
-        }
-      }
-    } else {
+  const handleViewDetails = async () => {
+    if (!user) {
       toast.error("Please log in with Google");
+      return;
     }
+
+    if (user.email === recipe.host.email) {
+      navigate(`/details/${recipe._id}`);
+      return;
+    }
+
+    if (coin < 10) {
+      navigate("/coins");
+      toast.error("You do not have enough coins. Please purchase more coins.");
+      return;
+    }
+
+    const confirmation = window.confirm(
+      "Are you sure you want to spend 10 coins to view this recipe?"
+    );
+    if (!confirmation) {
+      return;
+    }
+
+    const newCoinValue = coin - 10;
+
+    // Update coin value on the server
+    await setCoinValue(user.email, newCoinValue);
+    setCoin(newCoinValue);
+
+    // Update recipe data on the server
+    const updatedRecipe = {
+      ...recipe,
+      purchased_by: [...recipe.purchased_by, user.email],
+      watchCount: recipe.watchCount + 1,
+    };
+    await updateRecipe(recipe._id, updatedRecipe);
+
+    toast.success("10 coins deducted and recipe purchased successfully.");
+    navigate(`/details/${recipe._id}`);
   };
 
   return (
@@ -44,15 +60,14 @@ const RecipeCard = ({ recipe }) => {
           {recipe.name}
         </h5>
         <p className="font-normal text-gray-700">
-          Create By : {recipe.host.email}
+          Created By: {recipe.host.email}
         </p>
-        <p className="font-normal text-gray-700">Country : {recipe.country}</p>
-
+        <p className="font-normal text-gray-700">Country: {recipe.country}</p>
         <p className="font-normal text-gray-700">
-          Purchased By : {recipe.purchased_by}
+          Purchased By: {recipe.purchased_by.join(", ")}
         </p>
         <Button
-          onClick={handleGoogleSignIn}
+          onClick={handleViewDetails}
           size="xs"
           outline
           gradientDuoTone="tealToLime"
@@ -72,23 +87,48 @@ export default RecipeCard;
 // import { useNavigate } from "react-router-dom";
 // import { AuthContext } from "../providers/AuthProvider";
 // import toast from "react-hot-toast";
+// import { setCoinValue } from "../api/auth";
+// import { updateRecipe } from "../api/recipes";
 
 // const RecipeCard = ({ recipe }) => {
-//   const { user, coin } = useContext(AuthContext);
+//   const { user, coin, setCoin } = useContext(AuthContext);
 //   const navigate = useNavigate();
 
-//   const handleGoogleSignIn = () => {
+//   const handleViewDetails = async () => {
 //     if (user) {
 //       if (user.email === recipe.host.email) {
 //         navigate(`/details/${recipe._id}`);
 //       } else if (coin < 10) {
 //         navigate("/coins");
-//         toast.error("You don't have enough coins. Please purchase more coins.");
+//         toast.error(
+//           "You do not have enough coins. Please purchase more coins."
+//         );
 //       } else {
-//         toast.error("You are not the creator of this recipe.");
+//         const confirmation = window.confirm(
+//           "Are you sure you want to spend 10 coins to view this recipe?"
+//         );
+//         if (confirmation) {
+//           const newCoinValue = coin - 10;
+
+//           // update coin value on the server
+//           setCoinValue(user.email, newCoinValue);
+//           setCoin(newCoinValue);
+//           toast.success("10 coins added to the create user");
+
+//           // update recipe data
+//           const updatedRecipe = {
+//             ...recipe,
+//             purchased_by: [...recipe.purchased_by, user.email],
+//             watchCount: recipe.watchCount + 1,
+//           };
+
+//           updateRecipe(recipe._id, updatedRecipe);
+//           toast.success("Recipe purchased successfully.");
+//           navigate(`/details/${recipe._id}`);
+//         }
 //       }
 //     } else {
-//       toast.error("please google login");
+//       toast.error("Please log in with Google");
 //     }
 //   };
 
@@ -104,10 +144,10 @@ export default RecipeCard;
 //         <p className="font-normal text-gray-700">Country : {recipe.country}</p>
 
 //         <p className="font-normal text-gray-700">
-//           Purchased By : {recipe.purchased_by}
+//           Purchased By : {recipe.purchased_by.join(", ")}
 //         </p>
 //         <Button
-//           onClick={handleGoogleSignIn}
+//           onClick={handleViewDetails}
 //           size="xs"
 //           outline
 //           gradientDuoTone="tealToLime"

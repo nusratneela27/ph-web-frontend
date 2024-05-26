@@ -14,31 +14,12 @@ export const saveUser = user => {
         body: JSON.stringify(currentUser)
     })
         .then(res => res.json())
-        .then(data =>
-            console.log(data)
-        )
+    // .then(data =>
+    //     console.log(data)
+    // )
 }
 
-// Set coin value
-// export const setCoinValue = (email, coinValue) => {
-//     const currentUser = {
-//         coin: coinValue
-//     };
-
-//     return fetch(`${import.meta.env.VITE_API_URL}/users/${email}`, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-type': 'application/json',
-//         },
-//         body: JSON.stringify(currentUser),
-//     })
-//         .then(res => res.json())
-//         .then(data => {
-//             // console.log('Coin value updated successfully:', data);
-//             return data;
-//         })
-// };
-
+// Set coin value through mail
 export const setCoinValue = async (email, coinValue) => {
     const currentUser = {
         coin: coinValue
