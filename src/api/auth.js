@@ -19,6 +19,42 @@ export const saveUser = user => {
         )
 }
 
+// Set coin value
+// export const setCoinValue = (email, coinValue) => {
+//     const currentUser = {
+//         coin: coinValue
+//     };
+
+//     return fetch(`${import.meta.env.VITE_API_URL}/users/${email}`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-type': 'application/json',
+//         },
+//         body: JSON.stringify(currentUser),
+//     })
+//         .then(res => res.json())
+//         .then(data => {
+//             // console.log('Coin value updated successfully:', data);
+//             return data;
+//         })
+// };
+
+export const setCoinValue = async (email, coinValue) => {
+    const currentUser = {
+        coin: coinValue
+    };
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${email}`, {
+        method: 'PUT',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(currentUser),
+    })
+    const data = await response.json()
+    return data
+};
+
 // Get Single User Coin by Email
 export const getCoin = async (email) => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${email}`);
