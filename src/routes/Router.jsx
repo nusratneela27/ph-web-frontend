@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 import AddRecipes from "../pages/AddRecipes";
 import AllRecipes from "../pages/AllRecipes";
 import { getRecipe } from "../api/recipes";
+import CoinPurchase from "../pages/CoinPurchase";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddRecipes></AddRecipes>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/coins",
+        element: (
+          <PrivateRoute>
+            <CoinPurchase></CoinPurchase>
           </PrivateRoute>
         ),
       },

@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import logo from "../../assets/header_logo.webp";
+import { FaCoins } from "react-icons/fa";
+import { saveUser } from "../../api/auth";
 
 const Header = () => {
   const { user, signInWithGoogle, logOut } = useContext(AuthContext);
@@ -17,10 +19,12 @@ const Header = () => {
       .then((result) => {
         // console.log(result.user);
         toast.success("Google Login successful");
+        //save user in DB
+        saveUser(result.user);
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -43,7 +47,7 @@ const Header = () => {
             {user ? (
               <>
                 <div>
-                  <Tooltip content={user?.displayName} placement="left">
+                  <Tooltip content={user?.email} placement="left">
                     <Avatar
                       img={user?.photoURL}
                       className="mx-2"
@@ -100,6 +104,21 @@ const Header = () => {
                   }
                 >
                   Add Recipes
+                </NavLink>
+                <NavLink
+                  to={"/coins"}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#646e19] border-b-4 border-[#646e19]"
+                      : "hover:text-[#646e19]"
+                  }
+                >
+                  <div className="flex items-center gap-2">
+                    {" "}
+                    Coins <FaCoins></FaCoins>
+                  </div>
                 </NavLink>
               </>
             )}

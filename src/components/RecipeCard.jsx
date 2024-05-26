@@ -7,9 +7,15 @@ import toast from "react-hot-toast";
 
 const RecipeCard = ({ recipe }) => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
     if (user) {
+      if (user.email === recipe.host.email) {
+        navigate(`/details/${recipe._id}`);
+      } else {
+        toast.error("You are not the creator of this recipe.");
+      }
     } else {
       toast.error("please google login");
     }
@@ -30,16 +36,16 @@ const RecipeCard = ({ recipe }) => {
           Purchased By : {recipe.purchased_by}
         </p>
 
-        <Link to={`/details/${recipe._id}`}>
-          <Button
-            onClick={handleGoogleSignIn}
-            size="xs"
-            outline
-            gradientDuoTone="tealToLime"
-          >
-            View Details
-          </Button>
-        </Link>
+        {/* <Link to={`/details/${recipe._id}`}> */}
+        <Button
+          onClick={handleGoogleSignIn}
+          size="xs"
+          outline
+          gradientDuoTone="tealToLime"
+        >
+          View Details
+        </Button>
+        {/* </Link> */}
       </Card>
     </Container>
   );
