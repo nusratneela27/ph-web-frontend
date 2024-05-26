@@ -5,6 +5,7 @@ import RecipeDetails from "../pages/RecipeDetails";
 import PrivateRoute from "./PrivateRoute";
 import AddRecipes from "../pages/AddRecipes";
 import AllRecipes from "../pages/AllRecipes";
+import { getRecipe } from "../api/recipes";
 
 export const router = createBrowserRouter([
   {
@@ -20,12 +21,13 @@ export const router = createBrowserRouter([
         element: <AllRecipes></AllRecipes>,
       },
       {
-        path: "/details",
+        path: "/details/:id",
         element: (
           <PrivateRoute>
             <RecipeDetails></RecipeDetails>
           </PrivateRoute>
         ),
+        loader: ({ params }) => getRecipe(params.id),
       },
       {
         path: "/add-recipes",

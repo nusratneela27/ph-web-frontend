@@ -1,4 +1,4 @@
-import { Button, Label, TextInput, Select } from "flowbite-react";
+import { Button, Label, TextInput, Select, Textarea } from "flowbite-react";
 import Container from "../components/Shared/Container";
 import img from "../assets/SuccessStories/img2.jpg";
 import { useForm } from "react-hook-form";
@@ -48,6 +48,7 @@ const AddRecipes = () => {
             .then((data) => {
               // console.log(data);
               toast.success("Recipe Added!");
+              recipeData.reset();
             })
             .catch((err) => console.log(err));
         })
@@ -116,10 +117,10 @@ const AddRecipes = () => {
                   value="Recipe Details"
                 />
               </div>
-              <TextInput
+              <Textarea
                 type="text"
                 id="details"
-                placeholder="Details"
+                placeholder="Recipe Details"
                 required
                 color="success"
                 {...register("details", { required: true })}
@@ -157,6 +158,8 @@ const AddRecipes = () => {
                 <option value="">Select Category</option>
                 <option value="pizza">Pizza</option>
                 <option value="pasta">Pasta</option>
+                <option value="stack">Stack</option>
+                <option value="Dessert">Dessert</option>
               </Select>
               {errors.category && (
                 <span className="text-red-500">This field is required</span>

@@ -1,6 +1,6 @@
 import { Avatar, Button, Navbar, Tooltip } from "flowbite-react";
 import Container from "./Container";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
@@ -8,12 +8,16 @@ import logo from "../../assets/header_logo.webp";
 
 const Header = () => {
   const { user, signInWithGoogle, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         toast.success("Google Login successful");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error);

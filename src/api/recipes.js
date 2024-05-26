@@ -11,3 +11,17 @@ export const addRecipes = async recipeData => {
     const data = await response.json()
     return data
 }
+
+// Get all Recipes
+export const getAllRecipes = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/recipes`)
+    const data = await response.json()
+    return data
+}
+
+// Get Single Recipe
+export const getRecipe = async id => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/recipe/${id}`)
+    const data = await response.json()
+    return data
+}
