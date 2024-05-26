@@ -9,10 +9,11 @@ import { FaCoins } from "react-icons/fa";
 import { saveUser } from "../../api/auth";
 
 const Header = () => {
-  const { user, signInWithGoogle, logOut } = useContext(AuthContext);
+  const { user, signInWithGoogle, logOut, coin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  // console.log(coin);
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
@@ -117,7 +118,7 @@ const Header = () => {
                 >
                   <div className="flex items-center gap-2">
                     {" "}
-                    Coins <FaCoins></FaCoins>
+                    Coins <FaCoins></FaCoins> {coin}
                   </div>
                 </NavLink>
               </>

@@ -14,5 +14,14 @@ export const saveUser = user => {
         body: JSON.stringify(currentUser)
     })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data =>
+            console.log(data)
+        )
+}
+
+// Get Single User Coin by Email
+export const getCoin = async (email) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${email}`);
+    const user = await response.json();
+    return user?.coin;
 }
