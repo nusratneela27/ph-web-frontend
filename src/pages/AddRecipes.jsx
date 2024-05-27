@@ -50,7 +50,6 @@ const AddRecipes = () => {
           addRecipes(recipeData)
             .then((data) => {
               toast.success("Recipe Added!");
-              recipeData.reset();
             })
             .catch((err) => console.log(err));
         })

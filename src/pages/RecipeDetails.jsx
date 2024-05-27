@@ -22,10 +22,14 @@ const RecipeDetails = () => {
             <p className="font-normal text-gray-700">
               Country : {recipeData.country}
             </p>
-
-            <p className="font-normal text-gray-700">
-              Purchased By : {recipeData.purchased_by}
-            </p>
+            <div className="font-normal text-gray-700">
+              <p>Purchased By:</p>
+              <ul>
+                {recipeData.purchased_by.map((email, index) => (
+                  <li key={index}>{email}</li>
+                ))}
+              </ul>
+            </div>
             <p className="font-normal text-gray-700">
               Watch Count : {recipeData.watchCount}
             </p>
